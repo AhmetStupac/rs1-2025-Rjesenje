@@ -1,0 +1,51 @@
+<h2>Student Semesters</h2>
+<h4>Student ID: {{student?.id}}</h4>
+<h4>Student First Name: {{student?.firstName}}</h4>
+<h4>Student Last Name: {{student?.lastName}}</h4>
+
+<div *ngIf="dataSource.data.length === 0" class="no-data">
+  <p>No students to display.</p>
+</div>
+
+<button mat-flat-button (click)="goToNewSemester()">
+  Enroll in winter semester
+</button>
+
+<table [dataSource]="dataSource!" class="mat-elevation-z8" mat-table matSort>
+  <!-- First Name Column -->
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+    <mat-cell *matCellDef="let student">{{ student.id }}</mat-cell>
+  </ng-container>
+
+  <!-- Last Name Column -->
+  <ng-container matColumnDef="academicYear">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Academic Year</mat-header-cell>
+    <mat-cell *matCellDef="let student" >{{ student.akademskaGodina }}</mat-cell>
+  </ng-container>
+
+  <!-- Student Number Column -->
+  <ng-container matColumnDef="year">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Year of Study</mat-header-cell>
+    <mat-cell *matCellDef="let student" >{{ student.godinaStudija }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="renewal">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Renewal</mat-header-cell>
+    <mat-cell *matCellDef="let student" >{{ student.obnova }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="date">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Winter Semester</mat-header-cell>
+    <mat-cell *matCellDef="let student" >{{ student.datumUpisa }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="recordedBy">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Recorded By</mat-header-cell>
+    <mat-cell *matCellDef="let student" >{{ student.snimio }}</mat-cell>
+  </ng-container>
+
+  <!-- Table Header and Rows -->
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</table>

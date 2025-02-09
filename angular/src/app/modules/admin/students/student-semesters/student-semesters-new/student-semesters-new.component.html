@@ -1,0 +1,55 @@
+<mat-card class="city-form-card">
+  <h2>New semester for {{student?.firstName}}  {{student?.lastName}}</h2>
+
+  <form (ngSubmit)="newSemester()" [formGroup]="form">
+    <label>Datum upisa</label>
+    <input type="date" required formControlName="datumUpisa">
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Godina studija</mat-label>
+      <input formControlName="godinaStudija" matInput required type="number"/>
+      <mat-error *ngIf="form.get('godinaStudija')?.invalid && form.get('godinaStudija')?.touched">
+        <!-- Dinamičko prikazivanje grešaka -->
+        <ng-container *ngIf="form.get('godinaStudija')?.errors as errors">
+          <small *ngIf="errors['required']">Godina studija is required.</small>
+          <small *ngIf="errors['min']">
+            Minimum 50
+          </small>
+          <small *ngIf="errors['max']">
+            Maximum 2000
+          </small>
+        </ng-container>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Akademska godina</mat-label>
+      <mat-select formControlName="akademskaGodinaId">
+        <mat-option *ngFor="let ay of academicYears" [value]="ay.id">
+          {{ ay.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('akademskaGodinaId')?.invalid && form.get('akademskaGodinaId')?.touched">
+        <ng-container *ngIf="form.get('akademskaGodinaId')?.errors as errors">
+          <small *ngIf="errors['required']">Akademska godina is required.</small>
+        </ng-container>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Cijena skolarine</mat-label>
+      <input formControlName="cijenaSkolarine" matInput/>
+    </mat-form-field>
+
+    <mat-checkbox formControlName="obnova">Obnova</mat-checkbox>
+
+    <div class="form-buttons">
+      <button [disabled]="form.invalid" color="primary" mat-raised-button type="submit">
+        Save Changes
+      </button>
+      <button color="warn" mat-raised-button (click)="location.back()" type="button">
+        Cancel
+      </button>
+    </div>
+  </form>
+</mat-card>
